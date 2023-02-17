@@ -78,3 +78,27 @@ interface userData extends userCharacteristicData,
   userPaymentData {
   id: number;
 }
+
+interface ResponseData {
+};
+interface UserResponseData extends ResponseData {
+  users: userData[]
+};
+interface UserResponse {
+  data: UserResponseData
+}
+
+const axios = require('axios');
+
+const logUsers = async () => {
+  try {
+    const response: UserResponse = await axios.get('https://dummyjson.com/users');
+    const users = response.data.users;
+    const userLogs: string[] = users.map((user) => `User ${user.firstName} ${user.lastName} ${user.gender} being live in ${user.address.city} ${user.address.address} and work in ${user.company.name}`);
+    console.log(userLogs.join('\n'));
+  } catch {
+    throw Error('dummyjson.com/users doesn\'t response');
+  }
+}
+
+logUsers();
