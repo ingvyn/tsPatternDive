@@ -1,54 +1,54 @@
-enum Gender {
+enum GENDER {
   Male = 'male',
   Female = 'female'
 }
 
-interface addressData {
+interface AddressData {
   address: string;
-  city: string
+  city: string;
   coordinates: {
     lat: number;
-    lng: number
+    lng: number;
   }
   postalCode: string;
-  state: string
+  state: string;
 }
 
-interface companyData {
-    address: addressData;
+interface CompanyData {
+    address: AddressData;
     departmnet: string;
     name: string;
-    title: string
+    title: string;
 }
 
-interface userCharacteristicData {
+interface UserCharacteristicData {
   firstName: string;
   lastName: string;
   maidenName: string;
   age: number;
-  gender: Gender;
+  gender: GENDER;
   birthDate: string;
 }
 
-interface userContactData {
+interface UserContactData {
   email: string;
   phone: string;
   image: string;
-  address: addressData;
+  address: AddressData;
   macAddress: string;
   university: string;
-  company: companyData
+  company: CompanyData;
   domain: string;
-  ip: string
+  ip: string;
 }
 
-interface userAuthData {
+interface UserAuthData {
   username: string;
   password: string;
-  userAgent: string
+  userAgent: string;
 }
 
-interface userFeatureData {
+interface UserFeatureData {
   bloodGroup: string;
   height: number;
   weight: number;
@@ -59,33 +59,33 @@ interface userFeatureData {
   }
 }
 
-interface userPaymentData {
+interface UserPaymentData {
   bank: {
     cardExpire: string;
     cardNumber: string;
     cardType: string;
     currency: string;
-    iban: string
+    iban: string;
   }
   ein: string;
-  ssn: string
+  ssn: string;
 }
 
-interface userData extends userCharacteristicData,
-  userContactData,
-  userAuthData,
-  userFeatureData,
-  userPaymentData {
+interface UserData extends UserCharacteristicData,
+  UserContactData,
+  UserAuthData,
+  UserFeatureData,
+  UserPaymentData {
   id: number;
 }
 
 interface ResponseData {
 };
 interface UserResponseData extends ResponseData {
-  users: userData[]
+  users: UserData[];
 };
 interface UserResponse {
-  data: UserResponseData
+  data: UserResponseData;
 }
 
 const axios = require('axios');
