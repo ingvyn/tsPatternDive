@@ -8,11 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var Gender;
-(function (Gender) {
-    Gender["Male"] = "male";
-    Gender["Female"] = "female";
-})(Gender || (Gender = {}));
+var GENDER;
+(function (GENDER) {
+    GENDER["Male"] = "male";
+    GENDER["Female"] = "female";
+})(GENDER || (GENDER = {}));
 ;
 ;
 const axios = require('axios');
