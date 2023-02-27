@@ -1,6 +1,6 @@
 enum GENDER {
-  Male = 'male',
-  Female = 'female'
+  MALE = 'male',
+  FEMALE = 'female'
 }
 
 interface AddressData {
@@ -79,11 +79,10 @@ interface UserData extends UserCharacteristicData,
   id: number;
 }
 
-interface ResponseData {
-};
-interface UserResponseData extends ResponseData {
+interface UserResponseData {
   users: UserData[];
-};
+}
+
 interface UserResponse {
   data: UserResponseData;
 }
@@ -96,7 +95,7 @@ const logUsers = async () => {
     const users = response.data.users;
     const userLogs: string[] = users.map((user) => `User ${user.firstName} ${user.lastName} ${user.gender} being live in ${user.address.city} ${user.address.address} and work in ${user.company.name}`);
     console.log(userLogs.join('\n'));
-  } catch {
+  } catch (e) {
     throw Error('dummyjson.com/users doesn\'t response');
   }
 }
