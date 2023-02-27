@@ -10,11 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var GENDER;
 (function (GENDER) {
-    GENDER["Male"] = "male";
-    GENDER["Female"] = "female";
+    GENDER["MALE"] = "male";
+    GENDER["FEMALE"] = "female";
 })(GENDER || (GENDER = {}));
-;
-;
 const axios = require('axios');
 const logUsers = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -23,7 +21,7 @@ const logUsers = () => __awaiter(void 0, void 0, void 0, function* () {
         const userLogs = users.map((user) => `User ${user.firstName} ${user.lastName} ${user.gender} being live in ${user.address.city} ${user.address.address} and work in ${user.company.name}`);
         console.log(userLogs.join('\n'));
     }
-    catch (_a) {
+    catch (e) {
         throw Error('dummyjson.com/users doesn\'t response');
     }
 });
