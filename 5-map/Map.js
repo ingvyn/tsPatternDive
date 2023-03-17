@@ -6,12 +6,10 @@ const crc32 = require('crc-32');
 //     prev: IItem | null;
 // }
 class LItem {
-    constructor(pair) {
-        this.element = pair;
-    }
 }
 class LList {
     constructor() {
+        this.head = new LItem();
         this.head.element = null;
         this.head.next = null;
         this.head.prev = this.head;
@@ -22,7 +20,8 @@ class LList {
             foundItem.element = { key, value };
             return;
         }
-        const nextItem = new LItem({ key, value });
+        const nextItem = new LItem();
+        nextItem.element = { key, value };
         nextItem.next = null;
         const prevItem = this.head.prev;
         nextItem.prev = prevItem;
