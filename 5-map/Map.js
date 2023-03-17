@@ -1,37 +1,22 @@
+"use strict";
 const crc32 = require('crc-32');
-
-type valueType = number | string;
-
-type KVPair = {
-    key: string;
-    value: valueType;
-};
-
 // interface IItem {
 //     element: KVPair | null;
 //     next: IItem | null;
 //     prev: IItem | null;
 // }
-
 class LItem {
-    element: KVPair | null;
-    next: LItem | null;
-    prev: LItem;
-    constructor(pair: KVPair) {
+    constructor(pair) {
         this.element = pair;
     }
 }
-
 class LList {
-    private head: LItem;
-
     constructor() {
         this.head.element = null;
         this.head.next = null;
         this.head.prev = this.head;
     }
-
-    public addItem(key: string, value: valueType): void {
+    addItem(key, value) {
         const foundItem = this.getItem(key);
         if (foundItem) {
             foundItem.element = { key, value };
@@ -44,8 +29,7 @@ class LList {
         prevItem.next = nextItem;
         this.head.prev = nextItem;
     }
-
-    public deleteItem(key: string): void {
+    deleteItem(key) {
         const foundItem = this.getItem(key);
         if (foundItem === undefined) {
             throw new Error(`Ключ ${key} не содержится в хранилище`);
@@ -54,20 +38,20 @@ class LList {
         prevItem.next = foundItem.next;
         if (foundItem.next === null) {
             this.head.prev = prevItem;
-        } else {
+        }
+        else {
             foundItem.next.prev = prevItem;
         }
     }
-
-    public getValue(key: string): valueType | undefined {
-        return this.getItem(key)?.element?.value;
+    getValue(key) {
+        var _a, _b;
+        return (_b = (_a = this.getItem(key)) === null || _a === void 0 ? void 0 : _a.element) === null || _b === void 0 ? void 0 : _b.value;
     }
-
-    private getItem(key: string): LItem | undefined {
-        let currItem: LItem | null = this.head.next;
+    getItem(key) {
+        let currItem = this.head.next;
         while (currItem !== null) {
             const { element } = currItem;
-            if (element?.key === key) {
+            if ((element === null || element === void 0 ? void 0 : element.key) === key) {
                 return currItem;
             }
             currItem = currItem.next;
@@ -75,47 +59,40 @@ class LList {
         return undefined;
     }
 }
-
 class HashMap {
-    private _storage : LList[] = [];
-
-    private static getIndex(key: string): number {
+    constructor() {
+        this._storage = [];
+    }
+    static getIndex(key) {
         return Math.abs(crc32.str(key)) % 1000;
     }
-
-    public set(key: string, value: valueType): void {
+    set(key, value) {
         const index = HashMap.getIndex(key);
         if (!this._storage[index]) {
             this._storage[index] = new LList();
         }
         this._storage[index].addItem(key, value);
     }
-
-    public get(key: string): valueType {
+    get(key) {
+        var _a;
         const index = HashMap.getIndex(key);
-        const value = this._storage[index]?.getValue(key);
+        const value = (_a = this._storage[index]) === null || _a === void 0 ? void 0 : _a.getValue(key);
         if (!value) {
             throw new Error(`Ключ ${key} не содержится в хранилище`);
         }
         return value;
     }
-
-    public delete(key: string): void {
+    delete(key) {
         const index = HashMap.getIndex(key);
         this._storage[index].deleteItem(key);
     }
-
-    public clear(): void {
+    clear() {
         this._storage = [];
     }
 }
-
-
-
 const dict = new HashMap();
 dict.set('purple', 'js courses');
 dict.set('purple', 'js node and typescript courses');
 dict.set('homework', 'classes');
-
 console.log(dict.get('homework'));
 console.log(dict.get('purple'));
