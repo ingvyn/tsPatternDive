@@ -1,10 +1,5 @@
 "use strict";
 const crc32 = require('crc-32');
-// interface IItem {
-//     element: KVPair | null;
-//     next: IItem | null;
-//     prev: IItem | null;
-// }
 class LItem {
 }
 class LList {
@@ -89,9 +84,17 @@ class HashMap {
         this._storage = [];
     }
 }
-const dict = new HashMap();
-dict.set('purple', 'js courses');
-dict.set('purple', 'js node and typescript courses');
-dict.set('homework', 'classes');
-console.log(dict.get('homework'));
-console.log(dict.get('purple'));
+try {
+    const dict = new HashMap();
+    dict.set('purple', 'js courses');
+    dict.set('purple', 'js node and typescript courses');
+    dict.set('homework', 'classes');
+    dict.set('willbedeleted', 45);
+    dict.delete('willbedeleted');
+    console.log(dict.get('homework'));
+    console.log(dict.get('purple'));
+    console.log(dict.get('willbedeleted'));
+}
+catch (e) {
+    console.log(e.message);
+}
