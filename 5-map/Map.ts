@@ -7,12 +7,6 @@ type KVPair = {
     value: valueType;
 };
 
-// interface IItem {
-//     element: KVPair | null;
-//     next: IItem | null;
-//     prev: IItem | null;
-// }
-
 class LItem {
     element: KVPair | null;
     next: LItem | null;
@@ -110,11 +104,17 @@ class HashMap {
 }
 
 
+try {
+    const dict = new HashMap();
+    dict.set('purple', 'js courses');
+    dict.set('purple', 'js node and typescript courses');
+    dict.set('homework', 'classes');
+    dict.set('willbedeleted', 45);
+    dict.delete('willbedeleted');
 
-const dict = new HashMap();
-dict.set('purple', 'js courses');
-dict.set('purple', 'js node and typescript courses');
-dict.set('homework', 'classes');
-
-console.log(dict.get('homework'));
-console.log(dict.get('purple'));
+    console.log(dict.get('homework'));
+    console.log(dict.get('purple'));
+    console.log(dict.get('willbedeleted'));
+} catch (e) {
+    console.log((e as Error).message);
+}
