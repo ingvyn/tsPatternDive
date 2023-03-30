@@ -9,11 +9,12 @@ const dataGroup: IData[] = [
 	{ group: 2, name: 'c' },
 ];
 
-type KV = string | number;
-type J = Record<KV, KV>[];
-function groupByKey<T extends Record<KV, KV>, K extends keyof T>(data: T[], key: K): Record<KV, J> {
-    return data.reduce((acc, object) => {
-        const targetKeyArrray: J = ((object[key] as KV) in acc) ? acc[object[key] as KV]: [];
-        return {...acc, [object[key] as KV]: targetKeyArrray.push(object)};
+type key = string | number | symbol;
+type J = Record<key, any>[];
+function groupByKey<T extends Record<key, any>, K extends keyof T>(data: T[], key: K): Record<string, J> {
+    return data.reduce<Record<string, J>>((acc, object) => {
+        const keyValue = object[key];
+        const targetKeyArrray: J = (keyValue in acc) ? acc[keyValue] : [];
+        return {...acc, [keyValue]: targetKeyArrray.push(object)};
     }, {});
 }
