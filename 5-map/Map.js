@@ -50,7 +50,6 @@ class LList {
             }
             currItem = currItem.next;
         }
-        return undefined;
     }
 }
 class HashMap {
