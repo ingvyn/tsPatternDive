@@ -1,10 +1,10 @@
 const crc32 = require('crc-32');
 
-type valueType = number | string;
+type ValueType = number | string;
 
 type KVPair = {
     key: string;
-    value: valueType;
+    value: ValueType;
 };
 
 class LItem {
@@ -23,7 +23,7 @@ class LList {
         this.head.prev = this.head;
     }
 
-    public addItem(key: string, value: valueType): void {
+    public addItem(key: string, value: ValueType): void {
         const foundItem = this.getItem(key);
         if (foundItem) {
             foundItem.element = { key, value };
@@ -52,11 +52,11 @@ class LList {
         }
     }
 
-    public getValue(key: string): valueType | undefined {
+    public getValue(key: string): ValueType | undefined {
         return this.getItem(key)?.element?.value;
     }
 
-    private getItem(key: string): LItem | undefined {
+    private getItem(key: string): LItem | void {
         let currItem: LItem | null = this.head.next;
         while (currItem !== null) {
             const { element } = currItem;
@@ -65,7 +65,6 @@ class LList {
             }
             currItem = currItem.next;
         }
-        return undefined;
     }
 }
 
@@ -76,7 +75,7 @@ class HashMap {
         return Math.abs(crc32.str(key)) % 1000;
     }
 
-    public set(key: string, value: valueType): void {
+    public set(key: string, value: ValueType): void {
         const index = HashMap.getIndex(key);
         if (!this._storage[index]) {
             this._storage[index] = new LList();
@@ -84,7 +83,7 @@ class HashMap {
         this._storage[index].addItem(key, value);
     }
 
-    public get(key: string): valueType {
+    public get(key: string): ValueType {
         const index = HashMap.getIndex(key);
         const value = this._storage[index]?.getValue(key);
         if (!value) {
