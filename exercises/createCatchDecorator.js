@@ -17,18 +17,16 @@ __decorate([
     Catch()
 ], UsersPick.prototype, "getUsersInDatabase", null);
 function Catch(rethrow = false) {
-    return (target, propertyKey, descriptor) => {
-        const oldValue = descriptor.value;
-        descriptor.value = () => {
-            if (oldValue !== undefined) {
-                try {
-                    oldValue();
-                }
-                catch (error) {
-                    console.log(error.message);
-                    if (rethrow) {
-                        throw error;
-                    }
+    return (target, _, descriptor) => {
+        const method = descriptor.value;
+        descriptor.value = (...args) => {
+            try {
+                return method === null || method === void 0 ? void 0 : method.apply(target, args);
+            }
+            catch (error) {
+                console.log(error.message);
+                if (rethrow) {
+                    throw error;
                 }
             }
         };
